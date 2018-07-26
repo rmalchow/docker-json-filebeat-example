@@ -11,11 +11,11 @@ For this to work, all components in the flow will have to know about the format 
 Logback is included in any springboot application by default anyways, but we need another dependency to get a JSON encoder. There are different ones available, and they should all work similarly. For this example, I'm using:
 
 ```
-			<dependency>
-				<groupId>net.logstash.logback</groupId>
-				<artifactId>logstash-logback-encoder</artifactId>
-				<version>${logstash-logback-encoder.version}</version>
-			</dependency>
+<dependency>
+	<groupId>net.logstash.logback</groupId>
+	<artifactId>logstash-logback-encoder</artifactId>
+	<version>${logstash-logback-encoder.version}</version>
+</dependency>
 ```
 
 and then configure 
@@ -178,4 +178,10 @@ services:
     - /var/lib/docker/containers/:/var/lib/docker/containers
     - /var/run/docker.sock:/var/run/docker.sock
 ```
+
+## Output
+
+You can see examples of the final output [here (a regular message)](msg_normal.json) and [here (with a stack trace)](msg_stacktrace.json). As you can see, any imaginable piece of metadata is available here, including the MDCs (such as the "traceID" field from Sleuth).
+
+ 
 
