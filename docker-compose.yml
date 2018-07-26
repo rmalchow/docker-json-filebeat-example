@@ -1,0 +1,21 @@
+version: '2'
+services:
+  logging-filebeat:
+    image: [your registry]/[your filebeat image]
+    labels:
+      fluentd: ignore
+      io.rancher.container.agent.role: environmentAdmin
+      io.rancher.container.create_agent: 'true'
+      io.rancher.scheduler.global: 'true'
+    volumes:
+    - /var/lib/docker/containers/:/var/lib/docker/containers
+    - /filebeat:/filebeat
+    - /var/run/docker.sock:/var/run/docker.sock
+  logging-test-app:
+    image: [your registry]/[your test app image]
+    scale: 1
+    mem_reservation: 512000000
+    labels:
+      filebeat_enable: true
+      co.elastic.logs: true
+      co.elastic.logs/module: test-app
